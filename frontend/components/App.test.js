@@ -16,16 +16,15 @@ test('Active Square should be index 1 after moving up from index 4', () => {
   expect(squares[0].parentElement).toBe(screen.getByTestId('square-1'));
 });
 
-
 test('renders coordinates and steps', () => {
   render(<AppFunctional />);
-  expect(screen.getByText(/Coordinates/)).toBeInTheDocument();
+  expect(screen.getByText(/Coordinates \(2, 2\)/)).toBeInTheDocument();
   expect(screen.getByText(/You moved 0 times/)).toBeInTheDocument();
 });
 
 test('typing in input updates value', () => {
   render(<AppFunctional />);
-  const input = screen.getByPlaceholderText('Enter email');
+  const input = screen.getByPlaceholderText('type email');
   fireEvent.change(input, { target: { value: 'test@example.com' } });
   expect(input.value).toBe('test@example.com');
 });
@@ -41,14 +40,14 @@ test('clicking buttons moves the grid', () => {
 test('reset button resets the grid', () => {
   render(<AppFunctional />);
   fireEvent.click(screen.getByText('RIGHT'));
-  fireEvent.click(screen.getByText('RESET'));
+  fireEvent.click(screen.getByText('reset'));
   expect(screen.getByText(/Coordinates \(2, 2\)/)).toBeInTheDocument();
   expect(screen.getByText(/You moved 0 times/)).toBeInTheDocument();
 });
 
 test('form submission shows success or error message', async () => {
   render(<AppFunctional />);
-  const input = screen.getByPlaceholderText('Enter email');
+  const input = screen.getByPlaceholderText('type email');
   fireEvent.change(input, { target: { value: 'test@example.com' } });
   fireEvent.click(screen.getByText('Submit'));
   await screen.findByText(/success/i); // Adjust based on expected success message
