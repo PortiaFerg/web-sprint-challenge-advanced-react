@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent, screen } from '@testing-library/react';
+import { render, fireEvent, screen, waitFor } from '@testing-library/react';
 import AppFunctional from './AppFunctional';
 
 test('Active Square should be index 1 after moving up from index 4', () => {
@@ -10,10 +10,9 @@ test('Active Square should be index 1 after moving up from index 4', () => {
   fireEvent.click(upButton);
 
   // Check if the active square is now at index 1
-  const squares = screen.getAllByText('B');
-  expect(squares).toHaveLength(1);
-  expect(squares[0].parentElement).toHaveClass('square active');
-  expect(squares[0].parentElement).toBe(screen.getByTestId('square-1'));
+  const activeSquare = screen.getByText('B');
+  expect(activeSquare).toHaveClass('square active');
+  expect(activeSquare.parentElement).toHaveAttribute('data-testid', 'square-1');
 });
 
 test('renders coordinates and steps', () => {
@@ -55,7 +54,7 @@ test('form submission shows success or error message', async () => {
   fireEvent.change(input, { target: { value: 'test@example.com' } });
   fireEvent.click(screen.getByText('Submit'));
 
-  await screen.findByText(/success/i); // Adjust based on expected success message
+  await waitFor(() => screen.findByText(/success/i)); // Adjust based on expected success message
 });
 
 test('Steps counter handles a single step gracefully', () => {
