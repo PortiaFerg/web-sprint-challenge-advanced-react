@@ -2,6 +2,21 @@ import React from 'react';
 import { render, fireEvent, screen } from '@testing-library/react';
 import AppFunctional from './AppFunctional';
 
+test('Active Square should be index 1 after moving up from index 4', () => {
+  render(<AppFunctional />);
+  
+  // Move up from initial index 4
+  const upButton = screen.getByText('UP');
+  fireEvent.click(upButton);
+
+  // Check if the active square is now at index 1
+  const squares = screen.getAllByText('B');
+  expect(squares).toHaveLength(1);
+  expect(squares[0].parentElement).toHaveClass('square active');
+  expect(squares[0].parentElement).toBe(screen.getByTestId('square-1'));
+});
+
+
 test('renders coordinates and steps', () => {
   render(<AppFunctional />);
   expect(screen.getByText(/Coordinates/)).toBeInTheDocument();
