@@ -18,7 +18,7 @@ test('Active Square should be index 1 after moving up from index 4', () => {
 test('renders coordinates and steps', () => {
   render(<AppFunctional />);
   expect(screen.getByText(/Coordinates \(2, 2\)/)).toBeInTheDocument();
-  expect(screen.getByText(/You moved 0 times/)).toBeInTheDocument();
+  expect(screen.getByText(/You moved 0 time/)).toBeInTheDocument();
 });
 
 test('typing in input updates value', () => {
@@ -45,7 +45,7 @@ test('reset button resets the grid', () => {
   fireEvent.click(screen.getByText('RIGHT'));
   fireEvent.click(screen.getByText('reset'));
   expect(screen.getByText(/Coordinates \(2, 2\)/)).toBeInTheDocument();
-  expect(screen.getByText(/You moved 0 times/)).toBeInTheDocument();
+  expect(screen.getByText(/You moved 0 time/)).toBeInTheDocument();
 });
 
 test('form submission shows success or error message', async () => {
@@ -66,7 +66,7 @@ test('Steps counter handles a single step gracefully', () => {
   expect(screen.getByText(/You moved 1 time/)).toBeInTheDocument();
 
   fireEvent.click(screen.getByText('reset'));
-  expect(screen.getByText(/You moved 0 times/)).toBeInTheDocument();
+  expect(screen.getByText(/You moved 0 time/)).toBeInTheDocument();
 });
 
 
