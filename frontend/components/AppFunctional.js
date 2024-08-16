@@ -33,19 +33,9 @@ export default function AppFunctional(props) {
     setIndex(initialIndex);
   };
 
-  const getNextIndex = (direction) => {
-    const col = index % 3;
-    const row = Math.floor(index / 3);
-    if (direction === 'left' && col > 0) return index - 1;
-    if (direction === 'right' && col < 2) return index + 1;
-    if (direction === 'up' && row > 0) return index - 3;
-    if (direction === 'down' && row < 2) return index + 3;
-    return index;
-  };
-
-  const move = (evt) => {
+    const move = (evt) => {
     const direction = evt.target.id;
-    const newIndex = getNextIndex(direction);
+      const newIndex = getNextIndex(direction);
     if (newIndex !== index) {
       setIndex(newIndex);
       setSteps(steps + 1);
@@ -53,7 +43,16 @@ export default function AppFunctional(props) {
     } else {
       setMessage(`You can't go ${direction}`);
     }
-  };
+    };
+    const getNextIndex = (direction) => {
+      const col = index % 3;
+      const row = Math.floor(index / 3);
+      if (direction === 'left' && col > 0) return index - 1;
+      if (direction === 'right' && col < 2) return index + 1;
+      if (direction === 'up' && row > 0) return index - 3;
+      if (direction === 'down' && row < 2) return index + 3;
+      return index;
+    };
 
   const onChange = (evt) => {
     setEmail(evt.target.value);
@@ -66,9 +65,10 @@ export default function AppFunctional(props) {
 
     try {
       const response = await axios.post('http://localhost:9000/api/result', payload);
-      setMessage(response.data.message);
+      setMessage(response.data.message || 'Success!');
     } catch (error) {
-      setMessage(error.response.data.message);
+      const errorMessage = error.response?.data?.message || 'An error occurred';
+      setMessage(errorMessage);
     }
 
     setEmail(initialEmail);
@@ -78,7 +78,7 @@ export default function AppFunctional(props) {
     <div id="wrapper" className={props.className}>
       <div className="info">
         <h3 id="coordinates">{getXYMessage()}</h3>
-        <h3 id="steps">You moved {steps} times</h3>
+        <h3 id="steps">You moved {steps} time{steps === 1 ? '' : 's' }</h3>
       </div>
       <div id="grid">
         {[0, 1, 2, 3, 4, 5, 6, 7, 8].map((idx) => (

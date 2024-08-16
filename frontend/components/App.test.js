@@ -11,10 +11,11 @@ test('Active Square should be index 1 after moving up from index 4', () => {
   fireEvent.click(upButton);
 
   // Check if the active square is now at index 1
-  const activeSquare = screen.getByText('B');
-  expect(activeSquare).toHaveClass('square active');
-  expect(activeSquare.parentElement).toHaveAttribute('data-testid', 'square-1');
+  const squareElement = screen.getByTestId('square-1');
+
+  expect(squareElement).toHaveClass('square active');
 });
+
 
 test('renders coordinates and steps', () => {
   render(<AppFunctional />);
@@ -54,9 +55,9 @@ test('form submission shows success or error message', async () => {
   const input = screen.getByPlaceholderText('type email');
   fireEvent.change(input, { target: { value: 'test@example.com' } });
   fireEvent.click(screen.getByText('Submit'));
-
   await waitFor(() => screen.findByText(/success/i)); // Adjust based on expected success message
 });
+
 
 test('Steps counter handles a single step gracefully', () => {
   render(<AppFunctional />);
