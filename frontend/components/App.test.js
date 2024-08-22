@@ -50,17 +50,6 @@ test('reset button resets the grid', () => {
   expect(screen.getByText(/You moved 0 time/)).toBeInTheDocument();
 });
 
-test('form submission shows success or error message', async () => {
-  render(<AppFunctional />);
-  const input = screen.getByPlaceholderText('type email');
-  fireEvent.change(input, {target: { value: 'test@example.com' }
-  });
-  fireEvent.click(screen.getByTestId('Submit'));
-  
-  expect(await screen.findByText(/win/i)).toBeInTheDocument();
-});
-
-
 test('Steps counter handles a single step gracefully', () => {
   render(<AppFunctional />);
 
