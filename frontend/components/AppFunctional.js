@@ -101,7 +101,7 @@ export default function AppFunctional(props) {
       </div>
       <form onSubmit={onSubmit}>
         <input id="email" type="email" placeholder="type email" value={email} onChange={onChange} />
-        <input id="submit" type="submit" />
+        <input id="submit" type="submit" data-testid= "Submit" />
       </form>
     </div>
   );

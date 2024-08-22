@@ -1,9 +1,7 @@
 import React from 'react';
 import { render, fireEvent, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import axios from 'axios';
 import AppFunctional from './AppFunctional';
-jest.mock('axios');
 
 test('Active Square should be index 1 after moving up from index 4', () => {
   render(<AppFunctional />);
@@ -53,13 +51,13 @@ test('reset button resets the grid', () => {
 });
 
 test('form submission shows success or error message', async () => {
-  axios.post.mockResolvedValueOnce({ data: { message: 'Success!' } });
-
   render(<AppFunctional />);
   const input = screen.getByPlaceholderText('type email');
-  fireEvent.change(input, { target: { value: 'test@example.com' } });
-  fireEvent.click(screen.getByText('submit'));
-  expect(await screen.findByText(/success/i)).toBeInTheDocument()
+  fireEvent.change(input, {target: { value: 'test@example.com' }
+  });
+  fireEvent.click(screen.getByTestId('Submit'));
+  
+  expect(await screen.findByText(/win/i)).toBeInTheDocument();
 });
 
 
